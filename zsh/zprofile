@@ -36,7 +36,7 @@ path=(
   $HOME/.docker/bin(N-/)
   $ANDROID_SDK_ROOT/platform-tools(N-/)
   $ANDROID_SDK_ROOT/cmdline-tools/latest/bin(N-/)
-  # Global npm CLIs (devcontainer, expo-internal, clawdbot) live under fnm's default
+  # Global npm CLIs (devcontainer, expo-internal) live under fnm's default
   # Node. Last on PATH so they stay available in projects pinned to another Node,
   # while the active version's node/npm (prepended by fnm) always win.
   # Install new ones with the default active: `fnm use default && npm i -g <pkg>`.
