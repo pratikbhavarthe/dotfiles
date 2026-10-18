@@ -1,0 +1,26 @@
+# atuin — adapted from github.com/omerxx/dotfiles (atuin/). Local-only history search.
+# Docs: https://docs.atuin.sh/configuration/config/
+
+## Local only: never sync, never phone home. (`atuin login` would be needed to sync anyway.)
+auto_sync = false
+update_check = false
+
+## Search UI (^R)
+style = "compact"
+inline_height = 20
+enter_accept = true            # Enter runs the command; Tab puts it on the line to edit
+search_mode = "fuzzy"
+filter_mode = "global"         # ^R inside the picker cycles global → host → session → directory
+workspaces = true              # in a git repo, filter_mode "workspace" scopes to that repo
+show_preview = true
+show_help = false
+
+## Privacy: don't record commands that look like they contain secrets
+## (AWS keys, GitHub/Slack tokens, etc.), plus a few explicit patterns.
+secrets_filter = true
+history_filter = [
+  "(?i)(password|passwd|secret|token|api[_-]?key)=",
+]
+
+[theme]
+name = "vesper"

@@ -1,0 +1,1 @@
+-- Loaded on VeryLazy. LazyVim defaults: lua/lazyvim/config/autocmds.lua

@@ -1,0 +1,19 @@
+# Vesper for atuin (matches Ghostty / Starship / Neovim)
+[theme]
+name = "vesper"
+
+[colors]
+Base = "#E6E1DA"
+Important = "#FFC799"
+Title = "#FFC799"
+Guidance = "#A0A0A0"
+Annotation = "#7E7E7E"
+Muted = "#505050"
+AlertInfo = "#99FFE4"
+AlertWarn = "#FFC799"
+AlertError = "#FF8080"
+SyntaxCommand = "#FFC799"
+SyntaxFlag = "#A0A0A0"
+SyntaxString = "#99FFE4"
+SyntaxVariable = "#E6E1DA"
+SyntaxComment = "#505050"

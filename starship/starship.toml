@@ -1,0 +1,188 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Vesper prompt — two lines joined by a quiet frame; color carries meaning.
+#   ╭─ ~/Pluto/pluto-citymall-insights/app   main +1 !2 ?1 ⇡1  󰎙 22.23  󰔛 3.2s
+#   ╰─❯
+# Previous minimal version: ~/.config/shell-backups/starship.toml.minimal-*
+# Debug: starship explain · starship timings
+
+palette = "vesper"
+add_newline = true
+command_timeout = 500
+scan_timeout = 30
+
+format = """
+[╭─](frame)\
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_state\
+$git_status\
+$rust\
+$golang\
+$nodejs\
+$bun\
+$python\
+$docker_context\
+$kubernetes\
+$aws\
+${env_var.AWS_PROD_WARNING}\
+$jobs\
+$cmd_duration\
+$status
+[╰─](frame)$character"""
+
+# Vesper core + the warm accents from Vesper's ANSI palette.
+[palettes.vesper]
+amber = "#FFC799"
+peach = "#FFCFA8"
+mint = "#99FFE4"
+red = "#FF8080"
+lavender = "#B9AEDA"
+pink = "#E29ECA"
+sand = "#E6B99D"
+fg = "#E6E1DA"
+muted = "#A0A0A0"
+dim = "#7E7E7E"
+frame = "#505050"
+
+# ── Identity (SSH / root only) ───────────────────────────────────────
+[username]
+format = " [$user]($style)@"
+style_user = "bold mint"
+style_root = "bold red"
+
+[hostname]
+ssh_only = true
+format = "[$hostname]($style)"
+style = "bold mint"
+
+# ── Location: parent path dim, repo name bright, sub-path soft ───────
+[directory]
+format = " [$path]($style)[$read_only]($read_only_style)"
+repo_root_format = " [$before_root_path]($before_repo_root_style)[$repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style)"
+style = "fg"
+before_repo_root_style = "dim"
+repo_root_style = "bold amber"
+read_only = " 󰌾"
+read_only_style = "red"
+home_symbol = "~"
+truncation_length = 4
+truncate_to_repo = false
+truncation_symbol = "…/"
+
+# ── Git ──────────────────────────────────────────────────────────────
+[git_branch]
+format = "  [$symbol$branch(:$remote_branch)]($style)"
+symbol = " "
+style = "mint"
+truncation_length = 40
+truncation_symbol = "…"
+
+[git_state]
+format = ' [\($state( $progress_current/$progress_total)\)]($style)'
+style = "bold red"
+
+[git_status]
+format = '($all_status$ahead_behind)'
+conflicted = "[ =$count](bold red)"
+staged = "[ +$count](mint)"
+modified = "[ !$count](amber)"
+untracked = "[ ?$count](muted)"
+deleted = "[ -$count](red)"
+renamed = "[ »$count](lavender)"
+stashed = "[ ≡$count](lavender)"
+ahead = "[ ⇡$count](peach)"
+behind = "[ ⇣$count](peach)"
+diverged = "[ ⇡$ahead_count⇣$behind_count](peach)"
+up_to_date = ""
+
+# ── Toolchains (only when the project uses them) ─────────────────────
+[rust]
+format = " [$symbol$version]($style)"
+symbol = " "
+style = "peach"
+version_format = "${major}.${minor}"
+
+[golang]
+format = " [$symbol$version]($style)"
+symbol = " "
+style = "lavender"
+version_format = "${major}.${minor}"
+
+[nodejs]
+format = " [$symbol$version]($style)"
+symbol = "󰎙 "
+style = "mint"
+version_format = "${major}.${minor}"
+not_capable_style = "bold red"
+
+[bun]
+format = " [$symbol$version]($style)"
+symbol = "bun "
+style = "pink"
+version_format = "${major}.${minor}"
+
+[python]
+format = ' [$symbol$version( \($virtualenv\))]($style)'
+symbol = " "
+style = "sand"
+version_format = "${major}.${minor}"
+
+# ── Infrastructure ───────────────────────────────────────────────────
+[docker_context]
+format = " [$symbol$context]($style)"
+symbol = " "
+style = "lavender"
+only_with_files = true
+
+[kubernetes]
+disabled = false
+format = ' [$symbol$context( \($namespace\))]($style)'
+symbol = "󱃾 "
+style = "lavender"
+detect_files = ["Chart.yaml", "kustomization.yaml", "skaffold.yaml", "helmfile.yaml", "Tiltfile"]
+detect_folders = ["k8s", "kubernetes", "helm", "charts", "manifests"]
+
+[[kubernetes.contexts]]
+context_pattern = ".*prod.*"
+style = "bold red"
+context_alias = "PROD $0"
+
+# AWS_PROFILE is always set (pratik-pluto), so that profile is hidden; others show.
+[aws]
+format = '( [$symbol$profile]($style))'
+symbol = " "
+style = "peach"
+force_display = true
+
+[aws.profile_aliases]
+pratik-pluto = ""
+
+# Set by a precmd hook in ~/.config/zsh/plugins.zsh when AWS_PROFILE matches *prod*.
+[env_var.AWS_PROD_WARNING]
+format = " [$env_value]($style)"
+style = "bold red"
+
+# ── Status ───────────────────────────────────────────────────────────
+[jobs]
+format = " [$symbol$number]($style)"
+symbol = "✦"
+style = "lavender"
+number_threshold = 1
+
+[cmd_duration]
+min_time = 2000
+format = "  [󰔛 $duration]($style)"
+style = "sand"
+
+[status]
+disabled = false
+format = " [✘ $status]($style)"
+style = "bold red"
+
+[character]
+success_symbol = "[❯](bold amber)"
+error_symbol = "[❯](bold red)"
+vimcmd_symbol = "[❮](bold mint)"

@@ -1,0 +1,22 @@
+# ~/.zshrc — interactive shells. Keep this file small; modules live in ~/.config/zsh/.
+#   env.zsh         options, history, interactive environment, tool settings
+#   completion.zsh  compinit (cached) and completion styles
+#   plugins.zsh     fnm, zoxide, fzf, starship, autosuggestions, syntax highlighting
+#   aliases.zsh     short aliases
+#   functions.zsh   multi-step helpers (repo, gsw, rgf, dlogs, kctx, awsp, proj)
+# Profile startup:  ZPROF=1 zsh -i -c exit
+
+if [[ -n $ZPROF ]]; then zmodload zsh/zprof; fi
+
+ZSH_CONFIG_DIR="$HOME/.config/zsh"
+for _f in env completion plugins aliases functions; do
+  source "$ZSH_CONFIG_DIR/$_f.zsh"
+done
+unset _f
+
+# Machine-specific additions that shouldn't live in the shared modules.
+if [[ -r $ZSH_CONFIG_DIR/local.zsh ]]; then source "$ZSH_CONFIG_DIR/local.zsh"; fi
+
+if [[ -n $ZPROF ]]; then zprof; fi
+
+# Installers that append below this line should be moved into a module.

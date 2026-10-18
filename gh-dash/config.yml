@@ -1,0 +1,56 @@
+# gh-dash — adapted from github.com/omerxx/dotfiles (gh-dash/), Vesper colors.
+# Run: gh dash   (alias: gdash)   ·   ? for keys   ·   Docs: https://gh-dash.dev
+prSections:
+  - title: My Pull Requests
+    filters: is:open author:@me
+  - title: Needs My Review
+    filters: is:open review-requested:@me
+  - title: Pluto
+    filters: is:open org:plutomobilityhq -author:@me
+  - title: Involved
+    filters: is:open involves:@me -author:@me
+issuesSections:
+  - title: My Issues
+    filters: is:open author:@me
+  - title: Assigned
+    filters: is:open assignee:@me
+  - title: Involved
+    filters: is:open involves:@me -author:@me
+notificationsSections:
+  - title: All
+    filters: ""
+  - title: Participating
+    filters: reason:participating
+  - title: Mentioned
+    filters: reason:mention
+  - title: Review Requested
+    filters: reason:review-requested
+repo:
+  branchesRefetchIntervalSeconds: 30
+  prsRefetchIntervalSeconds: 60
+defaults:
+  preview:
+    open: false
+    width: 70
+  prsLimit: 20
+  issuesLimit: 20
+  notificationsLimit: 20
+  view: prs
+confirmQuit: false
+theme:
+  colors:
+    text:
+      primary: "#E6E1DA"
+      secondary: "#A0A0A0"
+      inverted: "#101010"
+      faint: "#7E7E7E"
+      warning: "#FFC799"
+      success: "#99FFE4"
+      error: "#FF8080"
+      actor: "#FFC799"
+    background:
+      selected: "#232323"
+    border:
+      primary: "#FFC799"
+      secondary: "#505050"
+      faint: "#232323"

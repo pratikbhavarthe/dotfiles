@@ -1,0 +1,6 @@
+.DS_Store
+# runtime/plugin state that must never be committed
+tmux/plugins/
+nvim/.luarc.json
+*.zwc
+zsh/modules/local.zsh

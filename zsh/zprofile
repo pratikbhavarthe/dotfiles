@@ -1,0 +1,43 @@
+# ~/.zprofile — login shells: environment and PATH, built once.
+# Runs after /etc/zprofile (path_helper), so entries here keep their order.
+# Interactive setup lives in ~/.zshrc → ~/.config/zsh/.
+
+# Homebrew (static equivalent of `brew shellenv`, avoids a subprocess)
+export HOMEBREW_PREFIX=/opt/homebrew
+export HOMEBREW_CELLAR=/opt/homebrew/Cellar
+export HOMEBREW_REPOSITORY=/opt/homebrew
+export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}"
+[ -z "${MANPATH-}" ] || export MANPATH=":${MANPATH#:}"
+
+# Homebrew's stable opt/ symlink survives `brew upgrade`; java_home is the fallback (+15ms).
+if [[ -d /opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home ]]; then
+  export JAVA_HOME=/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home
+else
+  export JAVA_HOME="$(/usr/libexec/java_home -v 17 2>/dev/null)"
+fi
+export ANDROID_SDK_ROOT="$HOME/Library/Android/sdk"
+export PNPM_HOME="$HOME/Library/pnpm"
+export BUN_INSTALL="$HOME/.bun"
+
+# typeset -U drops duplicates (first occurrence wins); (N-/) drops dirs that don't exist.
+# Node is not here: fnm prepends the active version in interactive shells.
+typeset -U path
+path=(
+  $HOME/.antigravity-ide/antigravity-ide/bin(N-/)
+  $HOME/.local/bin(N-/)
+  $HOME/.rbenv/shims(N-/)
+  $PNPM_HOME(N-/)
+  $BUN_INSTALL/bin(N-/)
+  ${JAVA_HOME:+$JAVA_HOME/bin}
+  /opt/homebrew/bin
+  /opt/homebrew/sbin
+  $path
+  $HOME/.cargo/bin(N-/)
+  $HOME/.docker/bin(N-/)
+  $ANDROID_SDK_ROOT/platform-tools(N-/)
+  $ANDROID_SDK_ROOT/cmdline-tools/latest/bin(N-/)
+  # Global CLIs installed under nvm's Node 20 (clawdbot, devcontainer, pluto-icons, …).
+  # Last, so fnm's node/npm always win; reinstall them under fnm to drop this line.
+  $HOME/.nvm/versions/node/v20.19.4/bin(N-/)
+)
+export PATH

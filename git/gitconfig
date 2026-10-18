@@ -1,0 +1,30 @@
+[alias]
+	lg = log --oneline --graph --decorate
+[credential "https://github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[core]
+	pager = delta
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true
+	line-numbers = true
+	syntax-theme = ansi
+	minus-style = "syntax \"#2A1A1A\""
+	minus-emph-style = "syntax \"#4A2626\""
+	plus-style = "syntax \"#16261F\""
+	plus-emph-style = "syntax \"#21402F\""
+	file-style = "#FFC799 bold"
+	hunk-header-style = line-number syntax
+	hunk-header-decoration-style = "#505050 box"
+	line-numbers-minus-style = "#FF8080"
+	line-numbers-plus-style = "#99FFE4"
+	line-numbers-zero-style = "#505050"
+[merge]
+	conflictStyle = zdiff3
+[diff]
+	colorMoved = default
