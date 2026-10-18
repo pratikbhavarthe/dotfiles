@@ -14,7 +14,8 @@ _cached_init() {
 
 # fnm — Node versions; auto-switches on cd when a .nvmrc/.node-version is found.
 # Not cached: `fnm env` creates a per-shell multishell path.
-eval "$(fnm env --use-on-cd --version-file-strategy=recursive --shell zsh)"
+# --log-level=quiet: no "Using Node vX" on cd; the prompt's node bubble shows it.
+eval "$(fnm env --use-on-cd --version-file-strategy=recursive --log-level=quiet --shell zsh)"
 
 _cached_init zoxide   zoxide init zsh               # z <dir>, zi (interactive)
 _cached_init fzf      fzf --zsh                     # ^T files, ⌥C cd (^R is taken by atuin below)

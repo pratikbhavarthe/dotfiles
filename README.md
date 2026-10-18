@@ -132,9 +132,11 @@ Commands that look like secrets are not recorded (`secrets_filter` + `history_fi
 
 ## Node (fnm)
 
-- `fnm default 22` is the global default; `.nvmrc` / `.node-version` switch automatically on `cd`.
-- v18/v20/v24 are symlinks to the old nvm installs (globals preserved). nvm itself is no longer loaded.
-- `~/.nvm/versions/node/v20.19.4/bin` is appended to PATH (last) only so `clawdbot`, `devcontainer`,
-  `pluto-icons`, `expo-internal` keep working. Reinstall them under fnm (`npm i -g …`) and drop that line.
+- `fnm default 22` is the global default; `.nvmrc` / `.node-version` switch automatically on `cd` (silently —
+  the prompt shows the version).
+- Installed: 18, 20, 22 (default), 24. nvm has been removed.
+- Global CLIs (`devcontainer`, `expo-internal`, `clawdbot`) are installed under the **default** Node.
+  `~/.local/share/fnm/aliases/default/bin` is last on PATH, so they work in projects pinned to other versions.
+  Add more with `fnm use default && npm i -g <pkg>`.
 - `fnm install 24`, `fnm use 20`, `fnm list`.
 
