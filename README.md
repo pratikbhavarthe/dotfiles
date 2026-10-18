@@ -4,6 +4,8 @@ macOS (Apple Silicon) terminal setup: **Ghostty · Vesper · zsh · Starship · 
 Everything is themed with [Vesper](https://github.com/raunofreiberg/vesper).
 Shell startup ≈ 155 ms. Neovim, tmux, atuin and gh-dash adapted from [omerxx/dotfiles](https://github.com/omerxx/dotfiles).
 
+**Daily keys and commands: [CHEATSHEET.md](CHEATSHEET.md)**
+
 ## Layout
 
 | Folder | Installs to |
