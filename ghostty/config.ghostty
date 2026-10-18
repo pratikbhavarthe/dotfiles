@@ -17,8 +17,10 @@ palette = 0=#232323
 split-divider-color = #232323
 
 # ── Font ─────────────────────────────────────────────────────────────
-# Ligature-capable variant (the NL variant disables them). calt/liga are on by default.
-font-family = JetBrainsMono Nerd Font Mono
+# Ghostty's built-in JetBrains Mono (ligatures on) + built-in Symbols Nerd Font.
+# Don't use a "Nerd Font Mono" family: it squeezes every icon into one cell.
+# Built-in symbols let icons span two cells when followed by a space.
+font-family = JetBrains Mono
 font-size = 14
 adjust-cell-height = 10%
 
