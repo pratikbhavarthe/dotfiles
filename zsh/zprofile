@@ -43,3 +43,10 @@ path=(
   $HOME/.local/share/fnm/aliases/default/bin(N-/)
 )
 export PATH
+
+# SSH keys: after a reboot the agent is empty. Load keys whose passphrases are in
+# the macOS Keychain (UseKeychain) so git commit signing and plain git@github.com
+# remotes work without prompting. Only runs when the agent has no keys (~4 ms check).
+if [[ $OSTYPE == darwin* ]] && ! ssh-add -l >/dev/null 2>&1; then
+  /usr/bin/ssh-add --apple-load-keychain -q 2>/dev/null
+fi
