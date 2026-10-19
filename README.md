@@ -130,6 +130,13 @@ History lives in a local SQLite DB (`~/.local/share/atuin`); sync and update che
 Commands that look like secrets are not recorded (`secrets_filter` + `history_filter`).
 `atuin stats` shows usage; `atuin search <q>` works non-interactively.
 
+## Python (uv)
+
+- `python3` is Homebrew's (3.14) for one-off scripts. Projects use **uv** — pyenv has been removed.
+- New project env: `uv venv --python 3.12 && uv pip install -r requirements.txt` (creates `.venv`, git-ignored by convention).
+- Python versions are managed by uv (`uv python install 3.13`, `uv python list`); no shims, nothing in PATH.
+- `~/.venv` (seaborn) is a uv venv on Python 3.12.
+
 ## Node (fnm)
 
 - `fnm default 22` is the global default; `.nvmrc` / `.node-version` switch automatically on `cd` (silently —

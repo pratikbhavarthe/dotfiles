@@ -123,6 +123,8 @@ New to Vim: `:Tutor` (≈20 min).
 | `kg` · `kd` · `kl` · `ke` | kubectl get · describe · logs -f · exec -it |
 | `awsp [profile]` | Switch AWS profile for this shell (warns on prod) |
 | `fnm list` · `fnm use 20` | Node versions (auto-switches on `.nvmrc`) |
+| `uv venv` · `uv pip install -r requirements.txt` | Python project env in `.venv` |
+| `uv run script.py` · `uv python install 3.13` | Run in project env · add a Python version |
 | `pluto-tunnel` | Restore ADB reverse tunnels |
 
 ## Reading the prompt
