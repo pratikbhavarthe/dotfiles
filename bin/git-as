@@ -1,0 +1,47 @@
+#!/bin/zsh
+# git-as [personal|work|admin] — choose which GitHub account this repo commits/pushes as.
+# Usable as `git-as …` or `git as …`. The remote's SSH alias decides the account
+# (see ~/.gitconfig); this rewrites the alias and switches the gh CLI to match.
+# No argument: show the current account for this repo.
+
+top=$(git rev-parse --show-toplevel 2>/dev/null) || { print -u2 "git-as: not inside a git repo (cd into one first)"; exit 1; }
+url=$(git remote get-url origin 2>/dev/null) || { print -u2 "git-as: this repo has no 'origin' remote"; exit 1; }
+case $url in
+  https://*) slug=${url#https://*/} ;;
+  *:*)       slug=${url#*:} ;;
+esac
+
+show() {
+  local eff host acct
+  eff=$(git ls-remote --get-url origin); host=${${eff#git@}%%:*}
+  case $host in
+    github-personal)    acct=pratikbhavarthe ;;
+    github-pluto-work)  acct=pratik-pluto ;;
+    github-pluto-admin) acct=plutomobility ;;
+    *)                  acct=$host ;;
+  esac
+  print -r -- "repo     ${top:t} ($slug)"
+  print -r -- "push as  $acct"
+  print -r -- "commits  $(git config user.email)  (signing ${$(git config user.signingkey):t})"
+  print -r -- "gh       $(gh api user --jq .login 2>/dev/null || print '?')"
+}
+
+(( $# == 0 )) && { show; exit 0; }
+
+case $1 in
+  personal) host=github-personal    acct=pratikbhavarthe ;;
+  work)     host=github-pluto-work  acct=pratik-pluto ;;
+  admin)    host=github-pluto-admin acct=plutomobility ;;
+  -h|--help) print "usage: git-as [personal|work|admin]   (no argument: show current)"; exit 0 ;;
+  *) print -u2 "usage: git-as [personal|work|admin]"; exit 2 ;;
+esac
+
+git remote set-url origin "git@$host:$slug" || exit 1
+if [[ $acct == plutomobility ]]; then
+  print -u2 "note: gh has no working login for plutomobility; gh unchanged"
+else
+  gh auth switch -h github.com -u $acct >/dev/null 2>&1 || print -u2 "note: couldn't switch gh to $acct"
+fi
+local_email=$(git config --local user.email)
+[[ -n $local_email ]] && print -u2 "note: this repo has its own user.email ($local_email), which overrides the account identity"
+show

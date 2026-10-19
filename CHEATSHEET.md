@@ -47,7 +47,7 @@ Day-to-day keys and commands for this setup. Full details: [README.md](README.md
 | `glg` · `glog` | one-line graph · two-line graph with date/author |
 | `lg` | lazygit (stage, commit, rebase, resolve) |
 | `gdash` | GitHub dashboard: my PRs, needs review, Pluto, issues (`?` for keys) |
-| `git-as` · `git-as personal\|work\|admin` | Show / switch which GitHub account this repo commits, signs and pushes as (also switches `gh`) |
+| `git as` · `git as personal\|work\|admin` (run inside a repo) | Show / switch which GitHub account this repo commits, signs and pushes as (also switches `gh`) |
 
 ## Ghostty — tabs & splits (default workflow)
 

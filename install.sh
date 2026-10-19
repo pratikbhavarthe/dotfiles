@@ -21,6 +21,7 @@ typeset -A links=(
   atuin/config.toml         ~/.config/atuin/config.toml
   atuin/themes              ~/.config/atuin/themes
   gh-dash/config.yml        ~/.config/gh-dash/config.yml
+  bin/git-as                ~/.local/bin/git-as
 )
 
 for src dst in ${(kv)links}; do
